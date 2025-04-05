@@ -1,4 +1,5 @@
 import pandas as pd
+import platform
 
 #1단계 딕셔너리 만들기 
 data = {
@@ -22,7 +23,10 @@ print(df[df['나이']>22])
 print(df[df['성별'] == '남'])
 
 # 데이터프레임을 CSV 파일로 저장
-df.to_csv('person_data.csv', index=False, encoding='cp949')
+if platform.system() == 'Darwin':  # macOS
+    df.to_csv('person_data.csv', index=False, encoding='utf-8-sig')
+else:  # Windows
+    df.to_csv('person_data.csv', index=False, encoding='cp949')
 print("CSV 파일이 저장되었습니다.")
 
 #3단계 파일 앍고 쓰기 
